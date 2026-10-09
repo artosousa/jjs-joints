@@ -16,7 +16,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Your Guitar,<br/>Everywhere</p>",
+            "text": "<p>YOUR GUITAR,<br/>EVERYWHERE.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -417,7 +417,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<p>Built for the way you actually play</p>",
+                    "text": "<p>BUILT FOR THE WAY YOU PLAY.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -438,6 +438,101 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "product_card_9QJdLK": {
+                  "type": "product-card",
+                  "name": "t:names.product_card",
+                  "disabled": true,
+                  "settings": {
+                    "product": "1960-s-hofner-galaxie-176",
+                    "product_card_gap": 4,
+                    "width": "custom",
+                    "custom_width": 40,
+                    "width_mobile": "custom",
+                    "custom_width_mobile": 100,
+                    "background_color": "",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_color": "",
+                    "border_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {
+                    "product_card_gallery_WtRVAf": {
+                      "type": "_product-card-gallery",
+                      "settings": {
+                        "image_ratio": "adapt",
+                        "border": "none",
+                        "border_width": 1,
+                        "border_opacity": 100,
+                        "border_color": "",
+                        "border_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    },
+                    "product_title_RJ6qNt": {
+                      "type": "product-title",
+                      "name": "t:names.product_title",
+                      "disabled": true,
+                      "settings": {
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "paragraph",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 4,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    },
+                    "price_t98Xip": {
+                      "type": "price",
+                      "name": "t:names.product_price",
+                      "settings": {
+                        "show_sale_price_first": true,
+                        "show_installments": false,
+                        "show_tax_info": false,
+                        "type_preset": "h6",
+                        "width": "100%",
+                        "alignment": "left",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "text_color": "",
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "product_card_gallery_WtRVAf",
+                    "product_title_RJ6qNt",
+                    "price_t98Xip"
+                  ]
                 },
                 "text_nPR8Ra": {
                   "type": "text",
@@ -467,6 +562,7 @@
               },
               "block_order": [
                 "text_tHfPKY",
+                "product_card_9QJdLK",
                 "text_nPR8Ra"
               ]
             },
@@ -476,7 +572,7 @@
                 "label": "Shop now",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
-                "style_class": "button-unstyled",
+                "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
                 "custom_button_border": "{{ settings.color_palette.background }}",
@@ -507,11 +603,125 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "hero_JpDFMb": {
+      "type": "hero",
+      "blocks": {
+        "text_dc6hLf": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>MADE FOR THE LONG WAY AROUND.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_zFMPgG": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Comfortable enough for the commute &<br/>tough enough for the road.&nbsp;</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "#ffffff",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_6ngMa3": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop Gig Bags",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button-secondary",
+            "custom_button_background": "rgba(0,0,0,0)",
+            "custom_button_text": "{{ settings.color_palette.background }}",
+            "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_dc6hLf",
+        "text_zFMPgG",
+        "button_6ngMa3"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/0_2.jpg",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "flex-end",
+        "align_baseline": true,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 24,
+        "section_width": "full-width",
+        "section_height": "full-screen",
+        "section_height_custom": 50,
+        "background_color": "",
+        "toggle_overlay": true,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 100,
+        "padding-block-end": 72
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "media_with_content_XNr87i"
+    "media_with_content_XNr87i",
+    "hero_JpDFMb"
   ]
 }
