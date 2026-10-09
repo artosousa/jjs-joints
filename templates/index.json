@@ -330,6 +330,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/artosousa_tight_close-up_photo_taken_directly_behind_a_young_mu_764ff26a-1854-4d6b-860f-304873e1070c.png",
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
@@ -416,7 +417,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h2>Our signature product</h2>",
+                    "text": "<p>Built for the way you actually play</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -441,9 +442,9 @@
                 "text_nPR8Ra": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Made with care and unconditionally loved by our customers, this signature bestseller exceeds all expectations.</p>",
-                    "width": "fit-content",
-                    "max_width": "narrow",
+                    "text": "<p>From the first train ride to the last song of the night, our bags are designed to keep your instrument protected without making you look like you’re carrying a piece of equipment.</p>",
+                    "width": "100%",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
