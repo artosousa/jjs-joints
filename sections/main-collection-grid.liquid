@@ -109,7 +109,14 @@
     </div>
   {%- endif -%}
 
-  {%- paginate collection.products by ss.products_per_page -%}
+  {%- liquid
+    # Shopify caps a single page at 250 products; larger collections fall back to pagination
+    assign per_page = ss.products_per_page
+    if ss.show_all_products
+      assign per_page = 250
+    endif
+  -%}
+  {%- paginate collection.products by per_page -%}
     {%- if collection.products.size > 0 -%}
       <ul class="hc-grid" role="list">
         {%- for product in collection.products -%}
@@ -958,13 +965,21 @@
       "default": "2"
     },
     {
+      "type": "checkbox",
+      "id": "show_all_products",
+      "label": "Show all products",
+      "info": "Shows every product in the collection on one page (up to 250)",
+      "default": true
+    },
+    {
       "type": "range",
       "id": "products_per_page",
       "label": "Products per page",
       "min": 8,
       "max": 48,
       "step": 4,
-      "default": 24
+      "default": 24,
+      "visible_if": "{{ section.settings.show_all_products == false }}"
     },
     {
       "type": "range",
