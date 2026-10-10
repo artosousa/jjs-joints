@@ -1,0 +1,227 @@
+{%- doc -%}
+  Styles for the "Editorial" layout style of the product-information section:
+  a wide two-column image grid on the left and a narrow, centered details column on the right.
+{%- enddoc -%}
+
+{% stylesheet %}
+  .product-information--editorial {
+    --pdp-serif: 'Times New Roman', Times, Georgia, serif;
+    --pdp-rule: #e1e1e1;
+    --pdp-muted: #6f6f6f;
+    --pdp-disabled: #9b9b9b;
+    --pdp-details-width: 340px;
+  }
+
+  /* Layout */
+  @media screen and (min-width: 750px) {
+    .product-information--editorial .product-information__grid:not(.product-information--media-none) {
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .product-information--editorial .product-information__grid.product-information--media-left .product-information__media,
+    .product-information--editorial .product-information__grid.product-information--media-right .product-information__media {
+      padding-inline: 0;
+    }
+
+    .product-information--editorial .product-information__grid .product-details {
+      padding-inline: 32px;
+    }
+
+    .product-information--editorial .product-details > * {
+      width: 100%;
+      max-width: var(--pdp-details-width);
+      margin-inline: auto;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .product-information--editorial .product-information__grid:not(.product-information--media-none) {
+      grid-template-columns: 3fr 2fr;
+    }
+
+    .product-information--editorial .product-information__grid.product-information--media-right {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-information--editorial .product-details {
+      padding-inline: 16px;
+    }
+  }
+
+  /* Title, subtitle, price */
+  .product-information--editorial .product-details :is(h1, .h1, h2, .h2, h3, .h3) {
+    margin: 0;
+    font-family: var(--pdp-serif);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .product-information--editorial .product-details .price,
+  .product-information--editorial .product-details .compare-at-price {
+    font-family: var(--pdp-serif);
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .product-information--editorial .pdp-subtitle {
+    color: var(--pdp-muted);
+    font-size: 11px;
+  }
+
+  /* Variant picker */
+  .product-information--editorial .variant-option + .variant-option {
+    margin-top: 32px;
+  }
+
+  .product-information--editorial .variant-option--buttons legend,
+  .product-information--editorial .variant-option[data-testid='variant-option-single'] {
+    margin-block-end: 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .product-information--editorial .variant-option__swatch-value {
+    padding-inline-start: 8px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* Swatches: small circles with a ring on the selected one */
+  .product-information--editorial .variant-option--swatches {
+    gap: 14px;
+  }
+
+  .product-information--editorial .variant-option__button-label--has-swatch {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    outline: 1px solid transparent;
+    outline-offset: 3px;
+  }
+
+  .product-information--editorial .variant-option__button-label--has-swatch .swatch {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .product-information--editorial .variant-option__button-label--has-swatch:has(input:checked) {
+    outline-color: #000;
+  }
+
+  /* Text options (size etc.): a 6-column grid of bordered cells */
+  .product-information--editorial .variant-option--buttons:not(.variant-option--swatches) {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
+    padding: 0 1px 1px 0;
+  }
+
+  .product-information--editorial .variant-option--buttons:not(.variant-option--swatches) .variant-option__button-label {
+    min-width: 0;
+    min-height: 36px;
+    margin: 0 -1px -1px 0;
+    padding: 0 4px;
+    border: 1px solid var(--pdp-rule);
+    border-radius: 0;
+    background: #fff;
+    color: #000;
+    font-size: 11px;
+  }
+
+  .product-information--editorial .variant-option--buttons:not(.variant-option--swatches) .variant-option__button-label:hover {
+    position: relative;
+    z-index: 1;
+    border-color: #000;
+  }
+
+  .product-information--editorial .variant-option--buttons:not(.variant-option--swatches) .variant-option__button-label:has(input:checked) {
+    position: relative;
+    z-index: 2;
+    border-color: #000;
+    background: #000;
+    color: #fff;
+  }
+
+  .product-information--editorial .variant-option--buttons .variant-option__button-label:has([data-option-available='false']) {
+    color: var(--pdp-disabled);
+  }
+
+  .product-information--editorial .variant-option__button-label__pill {
+    display: none;
+  }
+
+  /* An option with a single value renders as text: show it as a selected cell */
+  .product-information--editorial .variant-option[data-testid='variant-option-single'] {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    row-gap: 14px;
+  }
+
+  .product-information--editorial .variant-option[data-testid='variant-option-single'] .variant-option__swatch-value {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 4px;
+    background: #000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  /* Buy buttons */
+  .product-information--editorial .quantity-selector-wrapper {
+    display: none;
+  }
+
+  .product-information--editorial .product-form-buttons .button,
+  .product-information--editorial .add-to-cart-button {
+    width: 100%;
+    min-height: 38px;
+    height: 38px;
+    border-radius: 0;
+    background: #000;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product-information--editorial .add-to-cart-button:disabled,
+  .product-information--editorial .add-to-cart-button[disabled] {
+    background: var(--pdp-disabled);
+    border-color: var(--pdp-disabled);
+    opacity: 1;
+  }
+
+  .product-information--editorial .add-to-cart-button .svg-wrapper:not(.add-to-cart__added-icon) {
+    display: none;
+  }
+
+  .product-information--editorial .pdp-payment-terms {
+    color: var(--pdp-muted);
+    font-size: 10px;
+    text-align: center;
+  }
+
+  /* Media */
+  .product-information--editorial .media-gallery__grid {
+    border-radius: 0;
+  }
+{% endstylesheet %}
