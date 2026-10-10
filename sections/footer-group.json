@@ -39,7 +39,7 @@
           "type": "menu",
           "settings": {
             "menu": "main-menu",
-            "heading": "",
+            "heading": "Quick Links",
             "menu_spacing": 12,
             "show_as_accordion": false,
             "accordion_icon": "plus",
@@ -59,7 +59,7 @@
           "type": "menu",
           "settings": {
             "menu": "customer-account-main-menu",
-            "heading": "",
+            "heading": "My Account",
             "menu_spacing": 12,
             "show_as_accordion": false,
             "accordion_icon": "plus",
