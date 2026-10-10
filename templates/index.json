@@ -9,6 +9,160 @@
  */
 {
   "sections": {
+    "section_HMDVT3": {
+      "type": "section",
+      "blocks": {
+        "video_XTHmBG": {
+          "type": "video",
+          "name": "t:names.video",
+          "settings": {
+            "source": "uploaded",
+            "video": "shopify://files/videos/327985292_main_xxl.mp4",
+            "video_autoplay": true,
+            "video_loop": true,
+            "alt": "",
+            "custom_width": 100,
+            "custom_width_mobile": 100,
+            "aspect_ratio": "16/9",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_p4NQjE": {
+          "type": "group",
+          "name": "t:names.caption",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "background_color": "",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_e9cWnt": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Take a look behind the scenes of our latest product launch.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_xKeFYT": {
+              "type": "button",
+              "name": "t:names.button",
+              "settings": {
+                "label": "Discover the collection",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_e9cWnt",
+            "button_xKeFYT"
+          ]
+        }
+      },
+      "block_order": [
+        "video_XTHmBG",
+        "group_p4NQjE"
+      ],
+      "disabled": true,
+      "name": "t:names.video_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_color": "",
+        "border_radius": 0,
+        "padding-block-start": 32,
+        "padding-block-end": 32
+      }
+    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -16,7 +170,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>YOUR GUITAR,<br/>EVERYWHERE.</p>",
+            "text": "<p>YOUR GUITAR. YOUR EVERYWHERE.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -69,7 +223,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Gig Bags",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/guitars-basses",
             "open_in_new_tab": false,
             "style_class": "button-secondary",
             "custom_button_background": "rgba(0,0,0,0)",
@@ -91,8 +245,9 @@
       ],
       "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/artosousa_studio_still_life_product_photograph_a_forest_green_c_8d36ec5f-8361-44f0-8eda-88015f715d18.png",
+        "media_type_1": "video",
+        "image_1": "shopify://shop_images/gig-bag-city-2652c8ea.png",
+        "video_1": "shopify://files/videos/327985292_main_xxl.mp4",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -109,12 +264,12 @@
         "vertical_alignment_flex_direction_column": "flex-end",
         "gap": 24,
         "section_width": "full-width",
-        "section_height": "full-screen",
+        "section_height": "large",
         "section_height_custom": 50,
         "background_color": "",
         "toggle_overlay": true,
         "overlay_color": "#12121266",
-        "overlay_style": "solid",
+        "overlay_style": "gradient",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
         "reflection_opacity": 75,
@@ -303,10 +458,10 @@
       },
       "name": "t:names.featured_collection",
       "settings": {
-        "collection": "all",
+        "collection": "guitars-basses",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 8,
+        "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
@@ -330,7 +485,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/artosousa_a_man_in_his_twenties_kneeling_on_the_floor_of_a_brig_91cd14a2-e413-488e-8c1e-9846847931bd.png",
+            "image": "shopify://shop_images/guitar-lifestyle-d47755b0.png",
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
@@ -417,7 +572,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<p>BUILT FOR THE WAY YOU PLAY.</p>",
+                    "text": "<p>BUILT FOR THE WAY YOU ACTUALLY PLAY.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -444,7 +599,7 @@
                   "name": "t:names.product_card",
                   "disabled": true,
                   "settings": {
-                    "product": "1960-s-hofner-galaxie-176",
+                    "product": "1943-epiphone-ritz-natural",
                     "product_card_gap": 4,
                     "width": "custom",
                     "custom_width": 40,
@@ -604,6 +759,192 @@
         "padding-block-end": 40
       }
     },
+    "media_with_content_bAAKfa": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/stage-gig-bag-4969f5e8.png",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "space-between",
+            "gap": 24
+          },
+          "blocks": {
+            "text_WMDprj": {
+              "type": "text",
+              "name": "t:names.caption",
+              "settings": {
+                "text": "<p>Bestseller</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h6",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_By8iVn": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_GERPQi": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>MADE FOR THE LONG WAY AROUND</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h3",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_ijHYRT": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Made with care and unconditionally loved by our customers, this signature bestseller exceeds all expectations.</p>",
+                    "width": "fit-content",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_GERPQi",
+                "text_ijHYRT"
+              ]
+            },
+            "button_B8TiWF": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_WMDprj",
+            "group_By8iVn",
+            "button_B8TiWF"
+          ]
+        }
+      },
+      "name": "t:names.editorial",
+      "settings": {
+        "media_position": "right",
+        "media_width": "medium",
+        "media_height": "60svh",
+        "section_width": "full-width",
+        "extend_media": true,
+        "background_color": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "media_with_content_AiPwq4": {
       "type": "media-with-content",
       "blocks": {
@@ -612,7 +953,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/artosousa_a_man_in_his_twenties_kneeling_on_the_floor_of_a_brig_91cd14a2-e413-488e-8c1e-9846847931bd.png",
+            "image": "shopify://shop_images/bass-lifestyle-0305cf2d.png",
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
@@ -699,7 +1040,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<p>BUILT FOR THE WAY YOU PLAY.</p>",
+                    "text": "<p>MADE FOR THE LONG WAY AROUND</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -819,7 +1160,7 @@
                 "text_gWz4aF": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>From the first train ride to the last song of the night, our bags are designed to keep your instrument protected without making you look like you’re carrying a piece of equipment.</p>",
+                    "text": "<p>Explore the instruments and gear in our Guitars & Basses collection.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -851,8 +1192,8 @@
             "button_d8pUiG": {
               "type": "button",
               "settings": {
-                "label": "Shop now",
-                "link": "shopify://collections/all",
+                "label": "Browse Guitars & Basses",
+                "link": "shopify://collections/guitars-basses",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
@@ -876,7 +1217,7 @@
       },
       "name": "t:names.editorial",
       "settings": {
-        "media_position": "right",
+        "media_position": "left",
         "media_width": "medium",
         "media_height": "60svh",
         "section_width": "full-width",
@@ -1001,9 +1342,11 @@
     }
   },
   "order": [
+    "section_HMDVT3",
     "hero_jVaWmY",
     "product_list_fa6P9H",
     "media_with_content_XNr87i",
+    "media_with_content_bAAKfa",
     "media_with_content_AiPwq4",
     "hero_JpDFMb"
   ]
