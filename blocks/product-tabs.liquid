@@ -2,9 +2,9 @@
   assign product = closest.product
   assign uid = block.id
 
-  assign tab_1_content = block.settings.tab_1_content
-  if tab_1_content == blank and product
-    assign tab_1_content = product.description
+  assign first_tab_content = block.settings.tab_1_content
+  if first_tab_content == blank and product
+    assign first_tab_content = product.description
   endif
 
   assign labels = block.settings.tab_1_label | append: '|||' | append: block.settings.tab_2_label | append: '|||' | append: block.settings.tab_3_label
@@ -17,7 +17,7 @@
       {%- liquid
         case i
           when 1
-            assign content = tab_1_content
+            assign content = first_tab_content
           when 2
             assign content = block.settings.tab_2_content
           when 3
@@ -45,7 +45,7 @@
     {%- liquid
       case i
         when 1
-          assign content = tab_1_content
+          assign content = first_tab_content
         when 2
           assign content = block.settings.tab_2_content
         when 3
