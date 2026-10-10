@@ -1,0 +1,36 @@
+{%- assign product = closest.product -%}
+{%- assign form_id = 'PaymentTerms-' | append: block.id -%}
+{%- if product -%}
+  <div class="pdp-payment-terms" {{ block.shopify_attributes }}>
+    {%- form 'product', product, id: form_id, class: 'payment-terms' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      {{ form | payment_terms }}
+    {%- endform -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .pdp-payment-terms {
+    width: 100%;
+    font-size: 10px;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Installments",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows Shop Pay installments messaging when it's enabled for the store."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Installments"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,394 @@
+{%- liquid
+  assign ss = section.settings
+  assign source = ss.source
+  assign limit = ss.max_products
+
+  assign products = blank
+  case source
+    when 'collection'
+      if ss.collection != blank
+        assign products = ss.collection.products
+      endif
+    when 'related', 'complementary'
+      if recommendations.performed and recommendations.products_count > 0
+        assign products = recommendations.products
+      endif
+    when 'recently_viewed'
+      if search.performed and search.results_count > 0
+        assign products = search.results
+      endif
+  endcase
+
+  assign current_product_id = product.id | default: ''
+
+  case ss.image_ratio
+    when 'square'
+      assign image_ratio = '1 / 1'
+    when 'landscape'
+      assign image_ratio = '4 / 3'
+    when 'tall'
+      assign image_ratio = '2 / 3'
+    else
+      assign image_ratio = '4 / 5'
+  endcase
+
+  case ss.label_font
+    when 'heading'
+      assign label_font = 'var(--font-heading--family)'
+    when 'accent'
+      assign label_font = 'var(--font-accent--family)'
+    when 'body'
+      assign label_font = 'var(--font-body--family)'
+    else
+      assign label_font = '"Courier New", Courier, ui-monospace, monospace'
+  endcase
+
+  assign sizes = '(min-width: 990px) calc(100vw / ' | append: ss.columns_desktop | append: '), (min-width: 750px) calc(100vw / ' | append: ss.columns_tablet | append: '), calc(100vw / ' | append: ss.columns_mobile | append: ')'
+
+  assign recommendations_url = routes.product_recommendations_url | append: '?section_id=' | append: section.id | append: '&product_id=' | append: product.id | append: '&limit=' | append: limit | append: '&intent=' | append: source
+-%}
+
+<product-row
+  class="pr"
+  data-source="{{ source }}"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ current_product_id }}"
+  data-limit="{{ limit }}"
+  data-search-url="{{ routes.search_url }}"
+  {% if source == 'related' or source == 'complementary' %}
+    {% if product %}data-url="{{ recommendations_url }}"{% endif %}
+  {% endif %}
+  {% if products == blank and source != 'collection' %}hidden{% endif %}
+  style="
+    --hc-cols: {{ ss.columns_desktop }};
+    --hc-cols-tablet: {{ ss.columns_tablet }};
+    --hc-cols-mobile: {{ ss.columns_mobile }};
+    --hc-gap-x: {{ ss.gap_horizontal }}px;
+    --hc-gap-y: {{ ss.gap_vertical }}px;
+    --hc-ratio: {{ image_ratio }};
+    --hc-label-font: {{ label_font }};
+    --pr-pad-top: {{ ss.padding_top }}px;
+    --pr-pad-bottom: {{ ss.padding_bottom }}px;
+    {% if ss.image_background != blank %}--hc-image-bg: {{ ss.image_background }};{% endif %}
+  "
+>
+  <div class="pr__inner" data-pr-inner>
+    {%- if ss.heading != blank -%}
+      <h2 class="pr__heading">{{ ss.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if products != blank -%}
+      <ul class="hc-grid" role="list">
+        {%- assign shown = 0 -%}
+        {%- for item in products -%}
+          {%- if item.object_type and item.object_type != 'product' -%}{%- continue -%}{%- endif -%}
+          {%- if item.id == current_product_id -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= limit -%}{%- break -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          {%- render 'hc-product-card',
+            product: item,
+            sizes: sizes,
+            show_low_stock: ss.show_low_stock,
+            low_stock_threshold: ss.low_stock_threshold,
+            show_sale: ss.show_sale,
+            show_secondary_image: ss.show_secondary_image,
+            card_label_source: ss.card_label
+          -%}
+        {%- endfor -%}
+      </ul>
+    {%- elsif source == 'collection' and request.design_mode -%}
+      <p class="pr__empty">Pick a collection in the section settings.</p>
+    {%- endif -%}
+  </div>
+</product-row>
+
+{% stylesheet %}
+  .pr {
+    --pr-gutter: 24px;
+
+    display: block;
+    padding-block: var(--pr-pad-top) var(--pr-pad-bottom);
+    color: var(--color-foreground, #000);
+    font-family: var(--font-body--family);
+  }
+
+  .pr[hidden] {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pr {
+      --pr-gutter: 16px;
+    }
+  }
+
+  .pr__heading {
+    margin: 0 0 24px;
+    padding-inline: var(--pr-gutter);
+    font-family: var(--hc-label-font);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .pr__empty {
+    padding-inline: var(--pr-gutter);
+    font-size: 13px;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('product-row')) {
+    customElements.define(
+      'product-row',
+      class ProductRow extends HTMLElement {
+        connectedCallback() {
+          const { source } = this.dataset;
+          if (source === 'collection' || this.querySelector('.hc-grid')) return;
+
+          const url = source === 'recently_viewed' ? this.recentlyViewedUrl() : this.dataset.url;
+          if (!url) return;
+
+          fetch(url)
+            .then((response) => response.text())
+            .then((html) => {
+              const doc = new DOMParser().parseFromString(html, 'text/html');
+              const inner = doc.querySelector('[data-pr-inner]');
+              if (!inner || !inner.querySelector('.hc-card')) return;
+
+              if (this.ids) this.sortByIds(inner);
+              this.querySelector('[data-pr-inner]').replaceWith(inner);
+              this.hidden = false;
+            })
+            .catch(() => {});
+        }
+
+        recentlyViewedUrl() {
+          let ids = [];
+          try {
+            ids = JSON.parse(localStorage.getItem('viewedProducts') || '[]');
+          } catch (error) {
+            return null;
+          }
+
+          this.ids = ids.map(String).filter((id) => id !== this.dataset.productId);
+          if (this.ids.length === 0) return null;
+
+          const url = new URL(this.dataset.searchUrl, window.location.origin);
+          url.searchParams.set('q', this.ids.map((id) => `id:${id}`).join(' OR '));
+          url.searchParams.set('resources[type]', 'product');
+          url.searchParams.set('section_id', this.dataset.sectionId);
+          return url.toString();
+        }
+
+        // Search results come back in relevance order; show the most recently viewed first
+        sortByIds(inner) {
+          const grid = inner.querySelector('.hc-grid');
+          const cards = [...grid.children];
+          cards
+            .sort((a, b) => this.ids.indexOf(a.dataset.productId) - this.ids.indexOf(b.dataset.productId))
+            .forEach((card) => grid.append(card));
+        }
+      }
+    );
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product row",
+  "tag": "section",
+  "class": "section-product-row",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You may also like"
+    },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Products",
+      "options": [
+        { "value": "related", "label": "Related products (automatic)" },
+        { "value": "complementary", "label": "Complementary products" },
+        { "value": "recently_viewed", "label": "Recently viewed" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "related"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Used when Products is set to Collection"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Maximum products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "label_font",
+      "label": "Label font",
+      "info": "Used for the heading, badges and product type labels",
+      "options": [
+        { "value": "mono", "label": "Monospace" },
+        { "value": "heading", "label": "Heading" },
+        { "value": "accent", "label": "Accent" },
+        { "value": "body", "label": "Body" }
+      ],
+      "default": "mono"
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Products per row (desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Products per row (tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "gap_horizontal",
+      "label": "Horizontal gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "gap_vertical",
+      "label": "Vertical gap",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "tall", "label": "Tall (2:3)" },
+        { "value": "square", "label": "Square" },
+        { "value": "landscape", "label": "Landscape (4:3)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "color",
+      "id": "image_background",
+      "label": "Image background"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "card_label",
+      "label": "Label above title",
+      "options": [
+        { "value": "type", "label": "Product type" },
+        { "value": "vendor", "label": "Vendor" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "type"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_low_stock",
+      "label": "Show low stock badge",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "visible_if": "{{ section.settings.show_low_stock }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale",
+      "label": "Show sale badge",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product row"
+    }
+  ]
+}
+{% endschema %}
