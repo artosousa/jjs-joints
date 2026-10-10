@@ -1,0 +1,367 @@
+{%- liquid
+  assign ss = section.settings
+
+  case ss.image_ratio
+    when 'square'
+      assign image_ratio = '1 / 1'
+    when 'landscape'
+      assign image_ratio = '4 / 3'
+    when 'tall'
+      assign image_ratio = '2 / 3'
+    else
+      assign image_ratio = '4 / 5'
+  endcase
+
+  case ss.label_font
+    when 'heading'
+      assign label_font = 'var(--font-heading--family)'
+    when 'accent'
+      assign label_font = 'var(--font-accent--family)'
+    when 'body'
+      assign label_font = 'var(--font-body--family)'
+    else
+      assign label_font = '"Courier New", Courier, ui-monospace, monospace'
+  endcase
+
+  assign sizes = '(min-width: 990px) calc(100vw / ' | append: ss.columns_desktop | append: '), (min-width: 750px) calc(100vw / ' | append: ss.columns_tablet | append: '), calc(100vw / ' | append: ss.columns_mobile | append: ')'
+-%}
+
+<div
+  class="fpg"
+  style="
+    --hc-cols: {{ ss.columns_desktop }};
+    --hc-cols-tablet: {{ ss.columns_tablet }};
+    --hc-cols-mobile: {{ ss.columns_mobile }};
+    --hc-gap-x: {{ ss.gap_horizontal }}px;
+    --hc-gap-y: {{ ss.gap_vertical }}px;
+    --hc-ratio: {{ image_ratio }};
+    --hc-label-font: {{ label_font }};
+    --fpg-pad-top: {{ ss.padding_top }}px;
+    --fpg-pad-bottom: {{ ss.padding_bottom }}px;
+    {% if ss.image_background != blank %}--hc-image-bg: {{ ss.image_background }};{% endif %}
+  "
+>
+  {%- if ss.heading != blank or ss.description != blank or ss.link_label != blank -%}
+    <header class="fpg__header{% if ss.show_divider %} fpg__header--divider{% endif %}">
+      <div class="fpg__header-text">
+        {%- if ss.heading != blank -%}
+          <h2 class="fpg__heading">{{ ss.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if ss.description != blank -%}
+          <div class="fpg__description">{{ ss.description }}</div>
+        {%- endif -%}
+      </div>
+      {%- if ss.link_label != blank and ss.link_url != blank -%}
+        <a href="{{ ss.link_url }}" class="fpg__link">{{ ss.link_label | escape }}</a>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <ul class="hc-grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign item = block.settings.product -%}
+        {%- if item != blank -%}
+          {%- render 'hc-product-card',
+            product: item,
+            sizes: sizes,
+            show_low_stock: ss.show_low_stock,
+            low_stock_threshold: ss.low_stock_threshold,
+            show_sale: ss.show_sale,
+            show_secondary_image: ss.show_secondary_image,
+            card_label_source: ss.card_label,
+            attributes: block.shopify_attributes
+          -%}
+        {%- elsif request.design_mode -%}
+          <li class="hc-card" {{ block.shopify_attributes }}>
+            <div class="hc-card__media">
+              {{ 'product-apparel-1' | placeholder_svg_tag: 'hc-card__image hc-card__placeholder' }}
+            </div>
+            <div class="hc-card__info">
+              <p class="hc-card__label">Product</p>
+              <h3 class="hc-card__title">Select a product</h3>
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .fpg {
+    --fpg-gutter: 24px;
+
+    display: block;
+    padding-block: var(--fpg-pad-top) var(--fpg-pad-bottom);
+    color: var(--color-foreground, #000);
+    font-family: var(--font-body--family);
+  }
+
+  @media screen and (max-width: 749px) {
+    .fpg {
+      --fpg-gutter: 16px;
+    }
+  }
+
+  .fpg__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-inline: var(--fpg-gutter);
+  }
+
+  .fpg__header--divider {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .fpg__heading {
+    margin: 0;
+    font-family: var(--hc-label-font);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .fpg__description {
+    margin-top: 10px;
+    max-width: 720px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .fpg__description > * {
+    margin: 0;
+  }
+
+  .fpg__link {
+    flex-shrink: 0;
+    margin-top: 4px;
+    color: inherit;
+    font-size: 11px;
+    line-height: 1.2;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured products",
+  "tag": "section",
+  "class": "section-featured-products-grid",
+  "max_blocks": 24,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured products"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider under header",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "label_font",
+      "label": "Label font",
+      "info": "Used for the heading, badges and product type labels",
+      "options": [
+        { "value": "mono", "label": "Monospace" },
+        { "value": "heading", "label": "Heading" },
+        { "value": "accent", "label": "Accent" },
+        { "value": "body", "label": "Body" }
+      ],
+      "default": "mono"
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Products per row (desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Products per row (tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "gap_horizontal",
+      "label": "Horizontal gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "gap_vertical",
+      "label": "Vertical gap",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "tall", "label": "Tall (2:3)" },
+        { "value": "square", "label": "Square" },
+        { "value": "landscape", "label": "Landscape (4:3)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "color",
+      "id": "image_background",
+      "label": "Image background"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "card_label",
+      "label": "Label above title",
+      "options": [
+        { "value": "type", "label": "Product type" },
+        { "value": "vendor", "label": "Vendor" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "type"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_low_stock",
+      "label": "Show low stock badge",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "visible_if": "{{ section.settings.show_low_stock }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale",
+      "label": "Show sale badge",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured products",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

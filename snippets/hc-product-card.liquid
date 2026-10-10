@@ -11,6 +11,7 @@
   @param {boolean} [show_sale] - Show the sale badge
   @param {boolean} [show_secondary_image] - Show the second image on hover
   @param {string} [card_label_source] - 'type', 'vendor' or 'none'
+  @param {string} [attributes] - Extra attributes for the list item, e.g. block.shopify_attributes
 {%- enddoc -%}
 
 {%- liquid
@@ -48,7 +49,7 @@
       assign card_label = blank
   endcase
 -%}
-<li class="hc-card{% if second_image != blank %} hc-card--has-secondary{% endif %}" data-product-id="{{ product.id }}">
+<li class="hc-card{% if second_image != blank %} hc-card--has-secondary{% endif %}" data-product-id="{{ product.id }}" {{ attributes }}>
   <a href="{{ product.url | within: collection }}" class="hc-card__media" tabindex="-1" aria-hidden="true">
     {%- if product.featured_media -%}
       {%- assign image_alt = product.featured_media.alt | default: product.title -%}
