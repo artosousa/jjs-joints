@@ -120,7 +120,7 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 100,
-        "padding-block-end": 72
+        "padding-block-end": 100
       }
     },
     "product_list_fa6P9H": {
@@ -302,6 +302,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "t:names.featured_collection",
       "settings": {
         "collection": "guitars-basses",
@@ -321,6 +322,64 @@
         "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "featured_products_grid_XUEYnj": {
+      "type": "featured-products-grid",
+      "blocks": {
+        "product_yEpt8F": {
+          "type": "product",
+          "settings": {
+            "product": "sample-gig-bag"
+          }
+        },
+        "product_TRTPcc": {
+          "type": "product",
+          "settings": {
+            "product": "sample-gig-bag"
+          }
+        },
+        "product_aDCwGM": {
+          "type": "product",
+          "settings": {
+            "product": "sample-gig-bag"
+          }
+        },
+        "product_jxy6YF": {
+          "type": "product",
+          "settings": {
+            "product": "sample-gig-bag"
+          }
+        }
+      },
+      "block_order": [
+        "product_yEpt8F",
+        "product_TRTPcc",
+        "product_aDCwGM",
+        "product_jxy6YF"
+      ],
+      "name": "Featured products",
+      "settings": {
+        "heading": "",
+        "description": "",
+        "link_label": "View all",
+        "link_url": "",
+        "show_divider": false,
+        "label_font": "mono",
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": "2",
+        "gap_horizontal": 0,
+        "gap_vertical": 40,
+        "image_ratio": "tall",
+        "image_background": "",
+        "show_secondary_image": false,
+        "card_label": "none",
+        "show_low_stock": true,
+        "low_stock_threshold": 10,
+        "show_sale": false,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "media_with_content_XNr87i": {
@@ -1390,6 +1449,7 @@
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
+    "featured_products_grid_XUEYnj",
     "media_with_content_XNr87i",
     "media_with_content_bAAKfa",
     "media_with_content_AiPwq4",
