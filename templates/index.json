@@ -1302,6 +1302,17 @@
         "padding_top": 0,
         "padding_bottom": 64
       }
+    },
+    "custom_liquid_jUXxYD": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"height: 50px;\"></div>",
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
@@ -1312,6 +1323,7 @@
     "media_with_content_bAAKfa",
     "media_with_content_AiPwq4",
     "hero_JpDFMb",
-    "featured_products_grid_cwzher"
+    "featured_products_grid_cwzher",
+    "custom_liquid_jUXxYD"
   ]
 }
