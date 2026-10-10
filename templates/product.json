@@ -506,7 +506,7 @@
       ],
       "name": "Featured products",
       "settings": {
-        "heading": "Featured products",
+        "heading": "",
         "description": "",
         "link_label": "View all",
         "link_url": "",
@@ -538,11 +538,23 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "custom_liquid_6YYaFD": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"height:50px\"></div>",
+        "background_color": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "main",
     "product_recommendations_qggXJq",
+    "custom_liquid_6YYaFD",
     "featured_products_grid_FpUYfq",
     "custom_liquid_BPp6cE"
   ]
